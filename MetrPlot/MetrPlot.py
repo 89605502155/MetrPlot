@@ -5,7 +5,8 @@ from decimal import Decimal
 import numpy as np
 
 class MetrPlot:
-    def __init__(self, ms=30, sc_x="log",sc_y="log", name_plot=None, x_name="X", y_name="Y",save_name="Plot",x_s=12,y_s=7):
+    def __init__(self, ms=30, sc_x="log",sc_y="log", name_plot=None, x_name="X", y_name="Y",save_name="Plot",x_s=12,y_s=7,
+                    y_l_s=30,x_l_s=30):
         self.ms = ms
         self.sc_x = sc_x
         self.sc_y = sc_y
@@ -15,6 +16,8 @@ class MetrPlot:
         self.save_name = save_name
         self.x_s = x_s
         self.y_s = y_s
+        self.y_l_s = y_l_s
+        self.x_l_s = x_l_s
 
     def my_round(self,step,ma,mi,num,str):
         lis = list()
@@ -86,8 +89,8 @@ class MetrPlot:
         axs.set_title(self.name_plot, fontsize=28, loc="center", pad=15)
         axs.tick_params(which='major', length=10, width=2)
 
-        axs.set_xticklabels(lis_x, fontsize=20)
-        axs.set_yticklabels(lis_y, fontsize=20)
+        axs.set_xticklabels(lis_x, fontsize=self.x_l_s)
+        axs.set_yticklabels(lis_y, fontsize=self.y_l_s)
 
         axs.get_xaxis().set_tick_params(direction='in')
         axs.get_yaxis().set_tick_params(direction='in')
