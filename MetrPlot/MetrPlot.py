@@ -52,7 +52,7 @@ class MetrPlot:
     
     def format_lab_ax(self, arr,arr_num, sc):
         if sc=="log":
-            arr=['10$^{'+i+'}$' for i in arr]
+            arr=['10$^{'+str(i)+'}$' for i in arr]
             arr_num=np.power(10,arr_num)
         return arr,arr_num
     

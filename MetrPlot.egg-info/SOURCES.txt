@@ -7,4 +7,5 @@ MetrPlot/__init__.py
 MetrPlot.egg-info/PKG-INFO
 MetrPlot.egg-info/SOURCES.txt
 MetrPlot.egg-info/dependency_links.txt
+MetrPlot.egg-info/requires.txt
 MetrPlot.egg-info/top_level.txt
