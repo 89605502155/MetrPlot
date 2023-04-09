@@ -6,7 +6,7 @@ import numpy as np
 
 class MetrPlot:
     def __init__(self, ms=30, sc_x="log",sc_y="log", name_plot=None, x_name="X", y_name="Y",save_name="Plot",x_s=12,y_s=7,
-                    y_l_s=30,x_l_s=30):
+                    y_l_s=20,x_l_s=20):
         self.ms = ms
         self.sc_x = sc_x
         self.sc_y = sc_y
@@ -41,7 +41,7 @@ class MetrPlot:
             return self.my_round(step,ma,mi,2,"1.01")
         if delta >0.5 and delta < 5:
             return self.my_round(step, ma, mi, 1, "1.1")
-        if delta >=5 and delta <= 15:
+        if delta >=5:
             return self.my_round(step, ma, mi, 0, "1")
 
     def logger(self, arr, sc):
@@ -49,9 +49,12 @@ class MetrPlot:
             return np.log10(arr)
         return arr
     
-    def pr_axes(self,arr):
+    def pr_axes(self,arr,sc):
         d=0.25*(arr[1]-arr[0])
-        return [arr[0]-d,arr[-1]+d]
+        li=[arr[0]-d,arr[-1]+d]
+        if sc=="log":
+            return np.power(10,li)
+        return  li
     
     def format_lab_ax(self, arr,arr_num, sc):
         if sc=="log":
@@ -72,10 +75,11 @@ class MetrPlot:
         lis_x, lis_x_num = self.ax(x_copy)
         lis_y, lis_y_num = self.ax(y_copy)
 
-        y_pr=self.pr_axes(lis_y_num)
-        x_pr=self.pr_axes(lis_x_num)
-        axs.set_ylim(ymin=10**y_pr[0],ymax=10**y_pr[1])
-        axs.set_xlim(xmin=10**x_pr[0],xmax=10**x_pr[1])
+        y_pr=self.pr_axes(lis_y_num,self.sc_y)
+        x_pr=self.pr_axes(lis_x_num,self.sc_x)
+
+        axs.set_ylim(ymin=y_pr[0],ymax=y_pr[1])
+        axs.set_xlim(xmin=x_pr[0],xmax=x_pr[1])
 
         lis_x, lis_x_num =self.format_lab_ax(lis_x, lis_x_num, self.sc_x)
         lis_y, lis_y_num =self.format_lab_ax(lis_y, lis_y_num, self.sc_y)
@@ -100,6 +104,7 @@ class MetrPlot:
             plt.savefig(self.save_name+".svg", format="svg")
         plt.show()
         return 0
+
 
 
 
